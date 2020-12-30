@@ -1,0 +1,9 @@
+(set-logic LIA)
+(synth-fun inv ((speed Int) ) Bool)
+
+(declare-var speed Int)
+
+
+(constraint (= (inv speed) (and (not (= 6 speed)) (= 1 speed))))
+
+(check-synth)
