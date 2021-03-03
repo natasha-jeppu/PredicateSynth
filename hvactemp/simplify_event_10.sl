@@ -1,12 +1,11 @@
 (set-logic LIA)
-(synth-fun inv ((temp Int) (rangeLow Int) (desiredTemperature Int) (allowedError Int) ) Bool)
+(synth-fun inv ((prev_inp.temp Int) (desiredTemperature Int) (allowedError Int) ) Bool)
 
-(declare-var temp Int)
-(declare-var rangeLow Int)
+(declare-var prev_inp.temp Int)
 (declare-var desiredTemperature Int)
 (declare-var allowedError Int)
 
 
-(constraint (= (inv temp rangeLow desiredTemperature allowedError) (and (not (>= temp desiredTemperature)) (>= temp rangeLow) (not (= temp (- desiredTemperature allowedError))) (>= temp (- desiredTemperature allowedError)))))
+(constraint (= (inv prev_inp.temp desiredTemperature allowedError) (and (>= prev_inp.temp (- desiredTemperature allowedError)) (= prev_inp.temp (- desiredTemperature allowedError)))))
 
 (check-synth)

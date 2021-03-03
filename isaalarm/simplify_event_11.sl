@@ -1,11 +1,11 @@
 (set-logic LIA)
-(synth-fun inv ((inp Int) (high_thresh Int) (low_thresh Int) ) Bool)
+(declare-datatypes ((inp.cmd_t 0))
+	(((ADD) (NO_CMD) (REMOVE) (RESET) (UNSHEL) (UNSUPR) (c_ACK) (c_SHEL) (c_SUPR) )))
+(synth-fun inv ((inp.cmd inp.cmd_t)) Bool)
 
-(declare-var inp Int)
-(declare-var high_thresh Int)
-(declare-var low_thresh Int)
+(declare-var inp.cmd inp.cmd_t)
 
 
-(constraint (= (inv inp high_thresh low_thresh) (and (>= inp low_thresh) (>= inp high_thresh))))
+(constraint (= (inv inp.cmd) (and (not (= inp.cmd c_ACK)) (= inp.cmd c_SUPR))))
 
 (check-synth)

@@ -1,9 +1,11 @@
 (set-logic LIA)
-(synth-fun inv ((cmd Int) ) Bool)
+(synth-fun inv ((inp.val Int) (high_thresh Int) (low_thresh Int) ) Bool)
 
-(declare-var cmd Int)
+(declare-var inp.val Int)
+(declare-var high_thresh Int)
+(declare-var low_thresh Int)
 
 
-(constraint (= (inv cmd) (and (not (>= 6 cmd)) (= 7 cmd))))
+(constraint (= (inv inp.val high_thresh low_thresh) (and (>= inp.val low_thresh) (> inp.val high_thresh))))
 
 (check-synth)

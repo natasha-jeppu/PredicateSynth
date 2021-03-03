@@ -1,9 +1,11 @@
 (set-logic LIA)
-(synth-fun inv ((prev_s Int) ) Bool)
+(declare-datatypes ((inp.cmd_t 0))
+	(((ADD) (NO_CMD) (OOS) (REMOVE) (RESET) (UNSHEL) (UNSUPR) (c_ACK) (c_SHEL) (c_SUPR) )))
+(synth-fun inv ((inp.cmd inp.cmd_t)) Bool)
 
-(declare-var prev_s Int)
+(declare-var inp.cmd inp.cmd_t)
 
 
-(constraint (= (inv prev_s) (and (>= 3 prev_s) (= 3 prev_s))))
+(constraint (= (inv inp.cmd) (and (not (= inp.cmd REMOVE)) (not (= inp.cmd c_SUPR)) (= inp.cmd c_ACK))))
 
 (check-synth)

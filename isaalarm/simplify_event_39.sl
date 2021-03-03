@@ -1,9 +1,11 @@
 (set-logic LIA)
-(synth-fun inv ((cmd Int) ) Bool)
+(declare-datatypes ((prev_out.prev_s_t 0))
+	(((NORMAL) (RTN_UNACK) (UNACK) (s_ACK) )))
+(synth-fun inv ((prev_out.prev_s prev_out.prev_s_t)) Bool)
 
-(declare-var cmd Int)
+(declare-var prev_out.prev_s prev_out.prev_s_t)
 
 
-(constraint (= (inv cmd) (and (>= 1 cmd) (not (= 1 cmd)))))
+(constraint (= (inv prev_out.prev_s) (and (not (= prev_out.prev_s RTN_UNACK)) (= prev_out.prev_s NORMAL))))
 
 (check-synth)
